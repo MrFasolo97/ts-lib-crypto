@@ -1,5 +1,5 @@
 {
-  "name": "@waves/ts-lib-crypto",
+  "name": "ts-lib-crypto-faso",
   "version": "1.4.2",
   "description": "This library contains all algorithm implementations like signature verification and protocol entries like address used in Waves.",
   "keywords": [
@@ -12,9 +12,6 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "jest": {
-    "testEnvironment": "node"
-  },
   "scripts": {
     "postversion": "npm run build; cd dist; npm publish",
     "postpublish": "git push origin head",
