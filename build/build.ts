@@ -3,8 +3,8 @@ import { remove, p, run, files, copy, create, npmGetVersion, copyJson, versionTo
 async function build() {
   try {
     await remove(p('tmp'))
-    await remove(p('../dist'))
-    await remove(p('../docs'))
+    await remove(p('./dist'))
+    await remove(p('./docs'))
     await create(p('tmp'))
     await create(p('tmp/src'))
 
@@ -27,7 +27,7 @@ async function build() {
     //await copy(p('package.json'), p('tmp/dist/package.json'))
 
     //await copy(p('tmp/docs'), p('../docs'))
-    await copy(p('tmp/dist'), p('../dist'))
+    await copy(p('tmp/dist'), p('./dist'))
     await run(p('cp src/libs/*.d.ts dist/libs;cp src/libs/*.js dist/libs'))
     await remove(p('tmp'))
 
