@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2020",
     "lib": [
       "esnext",
-      "dom"
+      "dom",
+      "ES2020"
     ],
     "esModuleInterop": true,
     "downlevelIteration": true,
@@ -12,7 +13,8 @@
     //"allowJs": true,
     "module": "commonjs",
     "outDir": "dist",
-    "strict": true
+    "strict": true,
+    "moduleResolution": "node"
   },
   "include": [
     "./src/**/*"
