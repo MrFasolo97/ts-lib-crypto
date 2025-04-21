@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MrFasolo97/ts-lib-crypto.git"
+    "url": "git+https://github.com/MrFasolo97/ts-lib-crypto.git"
   },
   "dependencies": {
     "@jest/core": "^29.7.0",
