@@ -8,20 +8,20 @@ import { stringToBytes, bytesToString } from '../conversions/string-bytes'
 import { createSign, createVerify, generateKeyPairSync, generateKeyPair, constants } from 'crypto'
 
 export const pemToBytes = (pem: string): Uint8Array =>
-  base64Decode(pem.trim().split(/\r?\n/).slice(1, -1).join(''));
+  base64Decode(pem.trim().split(/\r?\n/).slice(1, -1).join(''))
 
 const pemTypeMap = {
   rsaPrivateNonEncrypted: 'RSA PRIVATE KEY',
   rsaPublic: 'PUBLIC KEY',
-};
+}
 
 export const bytesToPem = (bytes: Uint8Array, type: keyof typeof pemTypeMap): string => {
-  const header = `-----BEGIN ${pemTypeMap[type]}-----\n`;
-  const footer = `-----END ${pemTypeMap[type]}-----\n`;
+  const header = `-----BEGIN ${pemTypeMap[type]}-----\n`
+  const footer = `-----END ${pemTypeMap[type]}-----\n`
 
-  const base64 = base64Encode(bytes).replace(/(.{64})/g, '$1\n');
-  return `${header}${base64}\n${footer}`;
-};
+  const base64 = base64Encode(bytes).replace(/(.{64})/g, '$1\n')
+  return `${header}${base64}\n${footer}`
+}
 
 function derToPem(der: Uint8Array, type: 'pkcs1' | 'pkcs8' | 'spki'): string {
   const b64 = Buffer.from(der).toString('base64')
@@ -59,31 +59,30 @@ const digestMap: Record<RSADigestAlgorithm, (msg: Uint8Array) => Uint8Array> = {
   'SHA224': () => { throw new Error('Use Node.js crypto for SHA224') },
   'SHA384': () => { throw new Error('Use Node.js crypto for SHA384') },
   'SHA512': () => { throw new Error('Use Node.js crypto for SHA512') },
-};
+}
 
-export const rsaKeyPair = async (): Promise<TRSAKeyPair> => {
-  return new Promise((resolve, reject) => {
+export const rsaKeyPair = async (): Promise<TRSAKeyPair> =>
+  new Promise((resolve, reject) => {
     generateKeyPair('rsa', {
       modulusLength: 2048,
       publicExponent: 0x10001,
       publicKeyEncoding: { type: 'spki', format: 'pem' },
-      privateKeyEncoding: { type: 'pkcs1', format: 'pem' }
+      privateKeyEncoding: { type: 'pkcs1', format: 'pem' },
     }, (err, publicKey, privateKey) => {
       if (err) return reject(err)
       resolve({
         rsaPrivate: pemToBytes(privateKey),
-        rsaPublic: pemToBytes(publicKey)
+        rsaPublic: pemToBytes(publicKey),
       })
     })
   })
-}
 
 export const rsaKeyPairSync = (): TRSAKeyPair => {
   const { privateKey, publicKey } = generateKeyPairSync('rsa', {
     modulusLength: 2048,
     publicExponent: 0x10001,
     privateKeyEncoding: { type: 'pkcs1', format: 'pem' },
-    publicKeyEncoding: { type: 'spki', format: 'pem' }
+    publicKeyEncoding: { type: 'spki', format: 'pem' },
   })
 
   return {

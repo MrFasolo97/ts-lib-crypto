@@ -21,6 +21,7 @@
     //"./declarations/**/*"
   ],
   "exclude": [
+    "build",
     "node_modules",
     "dist",
     "test"
